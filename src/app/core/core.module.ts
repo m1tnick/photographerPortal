@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared/shared.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
+import { AlbunsRestService } from '../shared/albuns-rest.service';
 
 
 
@@ -26,6 +27,7 @@ import { CommonModule } from '@angular/common';
     HeaderComponent
   ],
   providers: [
+    AlbunsRestService
   ]    
 })
 export class CoreModule {}

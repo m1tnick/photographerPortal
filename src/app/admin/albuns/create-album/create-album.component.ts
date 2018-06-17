@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Observable, forkJoin } from 'rxjs';
+import { AlbunsRestService } from '../../../shared/albuns-rest.service';
+import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
+const URL = 'https://m1tnick-m1tnick.c9users.io/albuns';
 
 @Component({
   selector: 'app-create-album',
@@ -9,27 +12,111 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CreateAlbumComponent implements OnInit {
   fileToUpload: File = null;
+  progress;
+  canBeClosed = true; 
+  primaryButtonText = 'Upload';
+  showCancelButton = true; 
+  uploading = false;
+  uploadSuccessful = false;
+
+  @ViewChild('file') file;
+  public files: Set<File> = new Set();
+
+  addFiles() {
+    this.file.nativeElement.click();
+  } 
+
+  onFilesAdded() {
+    const files: { [key: string]: File } = this.file.nativeElement.files;
+    for (let key in files) {
+      if (!isNaN(parseInt(key))) {
+        this.files.add(files[key]);
+      }
+    }
+    this.closeDialog();
+  }
+
+  closeDialog() {
+
+    // set the component state to "uploading"
+    this.uploading = true;
   
-  constructor() { }
+    // start the upload and save the progress map
+    this.progress = this.albunsRestService.upload(this.files);
+  
+    // convert the progress map into an array
+    let allProgressObservables = [];
+    for (let key in this.progress) {
+      allProgressObservables.push(this.progress[key].progress);
+    }
+  
+    // Adjust the state variables
+  
+    // The OK-button should have the text "Finish" now
+    this.primaryButtonText = 'Finish';
+  
+    // The dialog should not be closed while uploading
+    this.canBeClosed = false;
+  
+    // Hide the cancel-button
+    this.showCancelButton = false;
+  
+    // When all progress-observables are completed...
+    forkJoin(allProgressObservables).subscribe(end => {
+      // ... the dialog can be closed again...
+      this.canBeClosed = true;
+  
+      // ... the upload was successful...
+      this.uploadSuccessful = true;
+  
+      // ... and the component is no longer uploading
+      this.uploading = false;
+    });
+  }
+
+  
+  public uploader:FileUploader = new FileUploader({url: URL});
+
+
+  constructor(private albunsRestService: AlbunsRestService, private el: ElementRef) { }
 
   ngOnInit() {
-    console.log("HELLLLLO");
+    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+      console.log("ImageUpload:uploaded:", item, status, response);
+  };
   }
   
   handleFileInput(files: FileList) {
-    console.log("HELLO"  + files);
     this.fileToUpload = files.item(0);
     this.postFile(this.fileToUpload);
   }
   
-postFile(fileToUpload: File): Observable<boolean> {
-    const endpoint = 'https://m1tnick-m1tnick.c9users.io/albuns';
-    const formData: FormData = new FormData();
+  postFile(fileToUpload: File) {
+    var formData: FormData = new FormData();
     formData.append('fileKey', fileToUpload, fileToUpload.name);
-    return this.httpClient
-      .post(endpoint, formData, { headers: yourHeadersConfig })
-      .map(() => { return true; })
-      .catch((e) => this.handleError(e));
+    console.log(formData);
+    this.albunsRestService.postFile(formData)
+    .subscribe((data) => console.log("LOL" + data));
+
   }  
+
+  upload() {
+    //locate the file element meant for the file upload.
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
+    //get the total amount of files attached to the file input.
+        let fileCount: number = inputEl.files.length;
+    //create a new fromdata instance
+        let formData = new FormData();
+    //check if the filecount is greater than zero, to be sure a file was selected.
+        if (fileCount > 0) { // a file was selected
+            //append the key name 'photo' with the first file in the element
+                formData.append('photo', inputEl.files.item(0));
+            //call the angular http method
+       }
+       console.log(formData)  ;
+       console.log(inputEl.files.item(0))  ;
+       this.albunsRestService.postFile(formData)
+       .subscribe((data) => console.log("LOL" + data));
+      }
 
 }
