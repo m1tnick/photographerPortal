@@ -21,7 +21,7 @@ export class AlbunsRestService {
 
   getImage(imageUrl: string): Observable<File> {
     return this.httpClient
-        .get(url, { responseType: ResponseContentType.Blob })
+        .get(url, { responseType: HttpResponse. })
         .map((res: Response) => res.blob());
 } 
 
