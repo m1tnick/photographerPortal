@@ -10,6 +10,8 @@ const httpImageUploadOptions = {
   };
 
 const url = 'https://m1tnick-m1tnick.c9users.io/albuns'; 
+const url2 = "http://fiddle.jshell.net/img/logo.png"; 
+
 
 @Injectable()
 export class AlbunsRestService {
@@ -20,9 +22,10 @@ export class AlbunsRestService {
   }
 
   getImage(imageUrl: string): Observable<File> {
-    return this.httpClient
-        .get(url, { responseType: HttpResponse. })
-        .map((res: Response) => res.blob());
+    return null;
+ //   return this.httpClient
+  //      .get(url, { responseType: HttpResponse. })
+    //   .map((res: Response) => res.blob());
 } 
 
   public upload(files: Set<File>): {[key:string]:Observable<number>} {

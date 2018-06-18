@@ -1,2 +1,2 @@
-<button type="button" class="btn btn-success btn-s" (click)="getAlbumImages()">
-Get
+<button type="button" class="btn btn-success btn-s" (click)="getAlbumImages()">Get</button>
+<img *ngFor="let image of images" [src]="image"/>
