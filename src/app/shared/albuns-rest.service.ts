@@ -9,7 +9,7 @@ const httpImageUploadOptions = {
     })
   };
 
-const url = 'https://m1tnick-m1tnick.c9users.io/albuns'; 
+const url = 'https://m1tnick-m1tnick.c9users.io/albuns/'; 
 const url2 = "http://fiddle.jshell.net/img/logo.png"; 
 
 
@@ -17,9 +17,15 @@ const url2 = "http://fiddle.jshell.net/img/logo.png";
 export class AlbunsRestService {
   constructor(private httpClient: HttpClient) {}
 
-  public getAlbumImage() {
+  public getAlbumImages() {
     return this.httpClient.get(url);
   }
+
+  public getAlbumImage(param: string) {
+    let params = new HttpParams().set('name', param);
+
+    return this.httpClient.get(url + param);
+  }  
 
   getImage(imageUrl: string): Observable<File> {
     return null;

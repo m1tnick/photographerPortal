@@ -16,10 +16,19 @@ export class ListAlbunsComponent implements OnInit {
   ngOnInit() {
   }
 
+  getAlbumImage(imageName: string) {
+    console.log("Sending request for " + imageName);
+    this.albunsRestService.getAlbumImage(imageName)
+      .subscribe((data: any) => {
+        console.log("Received something");
+        console.log(data);
+        });
+      }  
+
   getAlbumImages() {
     let imagefiles2: File[] = [];
 
-    this.albunsRestService.getAlbumImage()
+    this.albunsRestService.getAlbumImages()
       .subscribe((data: any[]) => {
         
         data.forEach(function(element) {
