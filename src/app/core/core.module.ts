@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { AlbunsRestService } from '../shared/albuns-rest.service';
+import { AlbunsService } from '../admin/albuns/albuns.service';
 
 
 
@@ -27,7 +28,8 @@ import { AlbunsRestService } from '../shared/albuns-rest.service';
     HeaderComponent
   ],
   providers: [
-    AlbunsRestService
+    AlbunsRestService,
+    AlbunsService
   ]    
 })
 export class CoreModule {}
