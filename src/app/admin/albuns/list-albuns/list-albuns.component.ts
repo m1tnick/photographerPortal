@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlbunsRestService } from '../../../shared/albuns-rest.service';
 import { forEach } from '@angular/router/src/utils/collection';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { Album } from '../../../models/album';
 
 @Component({
   selector: 'app-list-albuns',
@@ -11,9 +13,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ListAlbunsComponent implements OnInit {
   imagefiles: Set<File> = new Set();
   images = [];
-  constructor(private albunsRestService: AlbunsRestService, private sanitizer:DomSanitizer) { }
+  albuns: Album[];
+
+  constructor(private route: ActivatedRoute, private albunsRestService: AlbunsRestService, private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
+    console.log("HELLo");
+    this.albuns = this.route.snapshot.data.albuns;
+    console.log(this.albuns);
   }
 
   getAlbumImage(imageName: string) {
