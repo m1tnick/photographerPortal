@@ -18,9 +18,9 @@ export class ListAlbunsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private albunsRestService: AlbunsRestService, private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
-    console.log("HELLo");
-    this.albuns = this.route.snapshot.data.albuns;
-    console.log(this.albuns);
+    this.route.data.subscribe((
+      (data) => { this.albuns = data.albuns; }
+    ));
   }
 
   getAlbumImage(imageName: string) {

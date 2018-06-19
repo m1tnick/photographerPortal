@@ -7,7 +7,7 @@ import { ListAlbumResolver } from './resolvers/listAlbumResolver';
 
 
 const adminAlbunsRoutes: Routes = [
-  { path: '', component: ListAlbunsComponent, resolve: {albuns: ListAlbumResolver}, children: [
+  { path: '', component: ListAlbunsComponent, children: [
     { path: 'manage', component: ManageAlbunsComponent },
     { path: 'create', component: CreateAlbumComponent }
   ] },
@@ -15,7 +15,6 @@ const adminAlbunsRoutes: Routes = [
 
 @NgModule({
   providers:[
-    ListAlbumResolver
   ],
   imports: [
     RouterModule.forChild(adminAlbunsRoutes)

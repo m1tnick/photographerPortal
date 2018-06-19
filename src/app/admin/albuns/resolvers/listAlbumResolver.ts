@@ -9,7 +9,6 @@ export class ListAlbumResolver implements Resolve<Album[]> {
     constructor(private albunsService: AlbunsService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Album[]> {
-        console.log("LOL")
         return this.albunsService.readAlbuns();
     }
 }
