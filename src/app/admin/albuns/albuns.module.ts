@@ -7,6 +7,7 @@ import { AdminAlbunsRoutingModule } from './albuns-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { FormsModule } from '@angular/forms';
+import { AlbumComponent } from './album.component';
 
 
 
@@ -17,6 +18,6 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     AdminAlbunsRoutingModule
   ],
-  declarations: [CreateAlbumComponent, ManageAlbunsComponent, ListAlbunsComponent, FileSelectDirective]
+  declarations: [AlbumComponent, CreateAlbumComponent, ManageAlbunsComponent, ListAlbunsComponent, FileSelectDirective]
 })
 export class AlbunsModule { }
