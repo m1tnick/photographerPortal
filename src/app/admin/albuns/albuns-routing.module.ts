@@ -9,8 +9,9 @@ import { ListAlbumResolver } from './resolvers/listAlbumResolver';
 
 const adminAlbunsRoutes: Routes = [
   { path: '', component: AlbumComponent, children: [
-    { path: 'list', component: ListAlbunsComponent, resolve: {albuns: ListAlbumResolver} },
-    { path: 'create', component: CreateAlbumComponent }
+    { path: '', component: ListAlbunsComponent, resolve: {albuns: ListAlbumResolver} },
+    { path: 'new', component: CreateAlbumComponent },
+    { path: ':id', component: ManageAlbunsComponent }
   ] },
 ];
 

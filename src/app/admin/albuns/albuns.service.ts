@@ -24,6 +24,10 @@ export class AlbunsService {
       return this.http.get<Album[]>(this.albumUrl);
     }
 
+    public readAlbum(name: string): Observable<Album> {
+      return this.http.get<Album>(this.albumUrl);
+    }
+
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
           // A client-side or network error occurred. Handle it accordingly.

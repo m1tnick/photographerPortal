@@ -1,5 +1,7 @@
 <div class="container">
-    <div *ngFor="let album of albuns">{{album.name}}</div>
+    <div *ngFor="let album of albuns">
+            <a [routerLink]="['./', album.name]">{{album.name}}</a>
+            </div>
 </div>
 
 

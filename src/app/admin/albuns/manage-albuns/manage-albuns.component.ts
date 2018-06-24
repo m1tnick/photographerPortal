@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-manage-albuns',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-albuns.component.css']
 })
 export class ManageAlbunsComponent implements OnInit {
+  name: string;
 
-  constructor() { }
+  constructor(private route : ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(
+      (params : Params) => {
+         this.name = params["name"]; 
+         console.log(this.name);
+      }
+   );
   }
 
 }
