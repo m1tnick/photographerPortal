@@ -7,17 +7,15 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./manage-albuns.component.css']
 })
 export class ManageAlbunsComponent implements OnInit {
-  name: string;
+  id: string;
 
   constructor(private route : ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(
       (params : Params) => {
-         this.name = params["name"]; 
-         console.log(this.name);
+         this.id = params["id"]; 
       }
    );
   }
-
 }

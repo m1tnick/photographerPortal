@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpRequest, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpRequest, HttpHeaders, HttpParams } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { Album } from '../../models/album';
 import { catchError } from 'rxjs/operators';
@@ -24,8 +24,8 @@ export class AlbunsService {
       return this.http.get<Album[]>(this.albumUrl);
     }
 
-    public readAlbum(name: string): Observable<Album> {
-      return this.http.get<Album>(this.albumUrl);
+    public readAlbum(id: string): Observable<Album> {
+      return this.http.get<Album>(this.albumUrl + id);
     }
 
     private handleError(error: HttpErrorResponse) {

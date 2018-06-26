@@ -11,5 +11,6 @@ export class Album {
     this.name = name;
     this.description = description;
     this.images = images;
+    this.id = id;
   }
 }
