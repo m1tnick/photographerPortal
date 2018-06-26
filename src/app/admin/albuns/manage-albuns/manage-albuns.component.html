@@ -1,3 +1,8 @@
-<p>
-  manage-albuns works!
-</p>
+<div class="container">
+  <div>Name: {{album.name}}</div>
+  <div>Album: {{album.description}}</div>
+    <div *ngFor="let image of album.images">
+            {{image | json}}
+</div>
+
+</div>

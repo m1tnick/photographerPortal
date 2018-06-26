@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Album } from '../../../models/album';
 
 @Component({
   selector: 'app-manage-albuns',
@@ -7,15 +8,13 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./manage-albuns.component.css']
 })
 export class ManageAlbunsComponent implements OnInit {
-  id: string;
+  album: Album;
 
   constructor(private route : ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      (params : Params) => {
-         this.id = params["id"]; 
-      }
-   );
+    this.route.data.subscribe((
+      (data) => { this.album = data.albuns;}
+    ));
   }
 }
