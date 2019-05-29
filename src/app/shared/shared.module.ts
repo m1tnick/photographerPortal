@@ -1,10 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgModule } from '@angular/core';
 import { AlertModule } from 'ngx-bootstrap';
-import { AlbunsRestService } from './albuns-rest.service';
-
-
 
 @NgModule({
   imports: [

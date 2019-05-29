@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { AdminComponent } from './admin/admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { AdminComponent } from './admin/admin.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+
 
 @NgModule({
   imports: [
@@ -11,7 +12,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     AdminRoutingModule
   ],
   declarations: [
-    AdminComponent, 
+    AdminComponent,
     SidebarComponent
   ]
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Album } from '../../../models/album';
 
 @Component({
@@ -10,11 +10,11 @@ import { Album } from '../../../models/album';
 export class ManageAlbunsComponent implements OnInit {
   album: Album;
 
-  constructor(private route : ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe((
-      (data) => { this.album = data.albuns;}
+      (data) => { this.album = data.albuns; }
     ));
   }
 }

@@ -1,40 +1,47 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpErrorResponse, HttpEventType, HttpResponse } from '@angular/common/http';
-import { Observable, throwError, Subject } from 'rxjs';
-import { catchError, retry, tap, map } from 'rxjs/operators';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpEventType,
+  HttpHeaders,
+  HttpParams,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 const httpImageUploadOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'image'
-    })
-  };
+  headers: new HttpHeaders({
+    'Content-Type': 'image'
+  })
+};
 
-const url = 'https://m1tnick-m1tnick.c9users.io/albuns/'; 
-const url2 = "http://fiddle.jshell.net/img/logo.png"; 
-
+const url = 'https://m1tnick-m1tnick.c9users.io/albuns/';
+const url2 = 'http://fiddle.jshell.net/img/logo.png';
 
 @Injectable()
 export class AlbunsRestService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   public getAlbumImages() {
     return this.httpClient.get(url);
   }
 
   public getAlbumImage(param: string) {
-    let params = new HttpParams().set('name', param);
+    const params = new HttpParams().set('name', param);
 
     return this.httpClient.get(url + param);
-  }  
+  }
 
   getImage(imageUrl: string): Observable<File> {
     return null;
- //   return this.httpClient
-  //      .get(url, { responseType: HttpResponse. })
+    //   return this.httpClient
+    //      .get(url, { responseType: HttpResponse. })
     //   .map((res: Response) => res.blob());
-} 
+  }
 
-  public upload(files: Set<File>): {[key:string]:Observable<number>} {
+  public upload(files: Set<File>): { [key: string]: Observable<number> } {
     // this will be the our resulting map
     const status = {};
 
@@ -79,19 +86,19 @@ export class AlbunsRestService {
     return status;
   }
 
- public postFile(formData: FormData): Observable<any> {
+  public postFile(formData: FormData): Observable<any> {
     const endpoint = 'https://m1tnick-m1tnick.c9users.io/albuns';
-    //const formData: FormData = new FormData();
-    //formData.append('fileKey', fileToUpload, fileToUpload.name);
+    // const formData: FormData = new FormData();
+    // formData.append('fileKey', fileToUpload, fileToUpload.name);
     return this.httpClient.post(endpoint, formData, httpImageUploadOptions)
-    .pipe(
+      .pipe(
         tap( // Log the result or error
           catchError(this.handleError)
           //  data => console.log(data),
-           // error => console.log(error)
-          )
+          // error => console.log(error)
+        )
       );
-  }   
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -107,7 +114,5 @@ export class AlbunsRestService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
-
-
+  }
 }

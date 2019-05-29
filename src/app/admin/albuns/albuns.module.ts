@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateAlbumComponent } from './create-album/create-album.component';
-import { ManageAlbunsComponent } from './manage-albuns/manage-albuns.component';
-import { ListAlbunsComponent } from './list-albuns/list-albuns.component';
-import { AdminAlbunsRoutingModule } from './albuns-routing.module';
-import { SharedModule } from '../../shared/shared.module';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FileSelectDirective } from 'ng2-file-upload';
+
+import { SharedModule } from '../../shared/shared.module';
 import { AlbumComponent } from './album.component';
-
-
+import { AdminAlbunsRoutingModule } from './albuns-routing.module';
+import { CreateAlbumComponent } from './create-album/create-album.component';
+import { ListAlbunsComponent } from './list-albuns/list-albuns.component';
+import { ManageAlbunsComponent } from './manage-albuns/manage-albuns.component';
 
 @NgModule({
   imports: [
