@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FileSelectDirective } from 'ng2-file-upload';
 
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../../../../../src/app/shared/shared.module';
 import { AlbumComponent } from './album.component';
 import { AdminAlbunsRoutingModule } from './albuns-routing.module';
 import { CreateAlbumComponent } from './create-album/create-album.component';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Album } from '../../../models/album';
-import { AlbunsRestService } from '../../../shared/albuns-rest.service';
+import { AlbunsRestService } from '../../../../../../../src/app/shared/albuns-rest.service';
 
 @Component({
   selector: 'app-list-albuns',

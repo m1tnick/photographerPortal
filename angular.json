@@ -122,6 +122,134 @@
           }
         }
       }
+    },
+    "backoffice": {
+      "root": "projects/backoffice/",
+      "sourceRoot": "projects/backoffice/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/backoffice",
+            "index": "projects/backoffice/src/index.html",
+            "main": "projects/backoffice/src/main.ts",
+            "polyfills": "projects/backoffice/src/polyfills.ts",
+            "tsConfig": "projects/backoffice/tsconfig.app.json",
+            "assets": [
+              "projects/backoffice/src/favicon.ico",
+              "projects/backoffice/src/assets"
+            ],
+            "styles": [
+              "projects/backoffice/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/backoffice/src/environments/environment.ts",
+                  "with": "projects/backoffice/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "backoffice:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "backoffice:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "backoffice:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/backoffice/src/test.ts",
+            "polyfills": "projects/backoffice/src/polyfills.ts",
+            "tsConfig": "projects/backoffice/tsconfig.spec.json",
+            "karmaConfig": "projects/backoffice/karma.conf.js",
+            "styles": [
+              "projects/backoffice/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/backoffice/src/favicon.ico",
+              "projects/backoffice/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/backoffice/tsconfig.app.json",
+              "projects/backoffice/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "backoffice-e2e": {
+      "root": "projects/backoffice-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/backoffice-e2e/protractor.conf.js",
+            "devServerTarget": "backoffice:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "backoffice:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/backoffice-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "photographerPortal"
