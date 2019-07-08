@@ -3,11 +3,11 @@ import { EventEditComponent } from '@/event/event-edit/event-edit.component';
 import { EventListComponent } from '@/event/event-list/event-list.component';
 import { EventRoutingModule } from '@/event/event-routing.module';
 import { EventService } from '@/shared/event.service';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    EventRoutingModule
+    EventRoutingModule,
+    NgSelectModule
   ],
   providers: [
     EventService
