@@ -21,7 +21,7 @@ eventRoutes.route('/add').post(function (req, res) {
 
 // Defined get data(index or listing) route
 eventRoutes.route('/').get(function (req, res) {
-  TheEvent.find(function (err, events){
+  EventModel.find(function (err, events){
     if(err){
       console.log(err);
     }
