@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let TheEvent = new Schema({
+let EventModel = new Schema({
   id: {
     type: Number
   },
@@ -18,4 +18,4 @@ let TheEvent = new Schema({
     collection: 'theevent'
 });
 
-module.exports = mongoose.model('TheEvent', TheEvent);
+module.exports = mongoose.model('EventModel', EventModel);
