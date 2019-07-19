@@ -5,10 +5,10 @@ import { HomeComponent } from './core/home/home.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  // {
-  //   path: 'admin',
-  //   loadChildren: './admin/admin.module#AdminModule'
-  // },
+  {
+    path: 'event',
+    loadChildren: './event/event.module#EventModule'
+  },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

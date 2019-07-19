@@ -1,3 +1,4 @@
+import { EventService } from '@/shared/event.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -17,6 +18,7 @@ import { SharedModule } from './shared/shared.module';
     CoreModule
   ],
   providers: [
+    EventService
   ],
   bootstrap: [AppComponent]
 })

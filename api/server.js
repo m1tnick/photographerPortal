@@ -9,6 +9,10 @@ const express = require('express'),
 const config = Config.getConfig();
 const dbUrl = 'mongodb://' + config.HOST + ':27017/' + config.MONGODB;
 
+
+// Routing
+const eventsRoute = require('./routes/event.route');
+
 // MONGOOSE DB
 mongoose.Promise = global.Promise;
 mongoose.connect(dbUrl, { useNewUrlParser: true }).then(
@@ -19,7 +23,9 @@ mongoose.connect(dbUrl, { useNewUrlParser: true }).then(
 // EXPRESS
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use('/event', eventsRoute);
 
 const server = app.listen(config.PORT, () => {
   console.log(
