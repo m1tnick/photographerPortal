@@ -1,10 +1,11 @@
-const express = require('express'),
-    path = require('path'),
-    bodyParser = require('body-parser'),
-    cors = require('cors'),
-    mongoose = require('mongoose'),
-    chalk = require("chalk"),
-    Config = require(path.resolve("./configuration"));
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import path from 'path';
+import chalk from 'chalk';
+
+const Config = require(path.resolve("./configuration"));
 
 const config = Config.getConfig();
 const dbUrl = 'mongodb://' + config.HOST + ':27017/' + config.MONGODB;
@@ -31,6 +32,6 @@ const server = app.listen(config.PORT, () => {
   console.log(
     chalk`{green Node Js server running on {green.bold ${
       config.PORT
-      }} port at {green.bold ${config.MODE_TYPE}}..}`
+    }} port at {green.bold ${config.MODE_TYPE}}..}`
   );
 });

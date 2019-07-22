@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 let EventModel = new Schema({
@@ -18,4 +19,5 @@ let EventModel = new Schema({
     collection: 'theevent'
 });
 
-module.exports = mongoose.model('EventModel', EventModel);
+
+export default mongoose.model('EventModel', EventModel);

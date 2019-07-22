@@ -1,9 +1,9 @@
-const express = require('express');
+import express from 'express';
 const app = express();
 const eventRoutes = express.Router();
 
 // Require Event model in our routes module
-let EventModel = require('../models/event');
+import EventModel from '../models/event';
 
 // Defined store route
 eventRoutes.route('/add').post(function (req, res) {
@@ -63,4 +63,5 @@ eventRoutes.route('/delete/:id').get(function (req, res) {
     });
 });
 
-module.exports = eventRoutes;
+export default eventRoutes;
+// module.exports = eventRoutes;
