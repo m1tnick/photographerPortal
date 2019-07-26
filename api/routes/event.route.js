@@ -1,67 +1,86 @@
 import express from 'express';
-const app = express();
-const eventRoutes = express.Router();
-
-// Require Event model in our routes module
 import EventModel from '../models/event';
 
-// Defined store route
-eventRoutes.route('/add').post(function (req, res) {
-  console.log(req.body);
+const eventRoutes = express.Router();
 
-  let theEvent = new EventModel(req.body);
-  theEvent.save()
-    .then(theEvent => {
-      res.status(200).json({'theevent': 'event in added successfully'});
-    })
-    .catch(err => {
-      res.status(400).send("unable to save to database");
+eventRoutes.get('/', (req, res, next) => {
+    EventModel.find().then(events => {
+        res.status(200).json(events);
+    }).catch(err => {
+        res.status(500).json({
+            error: err
+        });
     });
 });
 
-// Defined get data(index or listing) route
-eventRoutes.route('/').get(function (req, res) {
-  EventModel.find(function (err, events){
-    if(err){
-      console.log(err);
-    }
-    else {
-      res.json(events);
-    }
-  });
+eventRoutes.post('/add', (req, res) => {
+    const theEvent = new EventModel(req.body);
+
+    theEvent.save()
+        .then(theEvent => {
+            res.status(201).json({ 'theevent': 'event in added successfully' });
+        })
+        .catch(err => {
+            res.status(400).send("unable to save to database");
+        });
 });
 
-
-// Defined edit route
-eventRoutes.route('/edit/:id').get(function (req, res) {
-  let id = req.params.id;
-  EventModel.findById(id, function (err, photoEvent){
-      res.json(photoEvent);
-  });
+eventRoutes.get('/:id', (req, res) => {
+    const id = req.params.id;
+    EventModel.findById(id).then((photoEvent) => {
+        if (photoEvent) {
+            res.status(200).json(photoEvent);
+        } else {
+            res.status(404).json({
+                message: 'No valid entry found for provided ID'
+            });
+        }
+    });
 });
 
-// //  Defined update route
-eventRoutes.route('/update/:id').post(function (req, res, next) {
-  EventModel.findById(req.params.id)
-    .then(eventRes => {
-      eventRes.name = req.body.name;
-      eventRes.type = req.body.type;
-      eventRes.date = req.body.date;
+eventRoutes.patch('/:id', (req, res, next) => {
+    const id = req.params.id;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
 
-      eventRes.save().then(business => {
-        res.json('Update complete');
-      })
+    EventModel.update({ _id: id }, { $set: updateOps })
+        .then(result => {
+            console.log(result);
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
 
-    }).catch(err => res.status(404).send("Event not found"))
+    //   EventModel.findById(req.params.id)
+    //     .then(eventRes => {
+    //       eventRes.name = req.body.name;
+    //       eventRes.type = req.body.type;
+    //       eventRes.date = req.body.date;
+
+    //       eventRes.save().then(business => {
+    //         res.json('Update complete');
+    //       })
+
+    //     }).catch(err => res.status(404).send("Event not found"))
 });
 
 // Defined delete | remove | destroy route
-eventRoutes.route('/delete/:id').get(function (req, res) {
-  EventModel.findByIdAndRemove({_id: req.params.id}, function(err, business){
-        if(err) res.json(err);
-        else res.json('Successfully removed');
-    });
+eventRoutes.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    EventModel.findByIdAndRemove({ _id: id })
+        .then(result => {
+            res.status(200).json('Successfully removed');
+        })
+        .catch((err) => {
+            res.status(404).json(err);
+        });
 });
 
 export default eventRoutes;
-// module.exports = eventRoutes;

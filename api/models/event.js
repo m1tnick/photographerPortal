@@ -1,10 +1,8 @@
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
-
-let EventModel = new Schema({
-  id: {
-    type: Number
+const eventSchema = mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId
   },
   name: {
     type: String
@@ -20,4 +18,4 @@ let EventModel = new Schema({
 });
 
 
-export default mongoose.model('EventModel', EventModel);
+export default mongoose.model('EventModel', eventSchema);
