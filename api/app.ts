@@ -1,20 +1,20 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
-import morgan from 'morgan';
 import mongoose from 'mongoose';
-import eventsRoute from './routes/event.route';
-import getConfig from './configuration';
+import morgan from 'morgan';
 
-const config = getConfig();
+import eventsRoute from './routes/event.route';
+import config from './utils/config';
+
 const app = express();
 const dbUrl = 'mongodb://' + config.HOST + ':27017/' + config.MONGODB;
 
 // MONGOOSE DB
 mongoose.Promise = global.Promise;
 mongoose.connect(dbUrl, { useNewUrlParser: true }).then(
-    () => {console.log('Database is connected') },
-    err => { console.log('Can not connect to the database'+ err)}
+    () => console.log('Database is connected'),
+    err => console.log('Can not connect to the database' + err)
 );
 
 // EXPRESS
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Origin', '*');
     res.header(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
@@ -40,11 +40,11 @@ app.use((req, res, next) => {
 
 
 // ROUTES
-app.use('/event', eventsRoute);
+app.use('/events', eventsRoute);
 
 app.use((req, res, next) => {
-    const error = new Error('Not found');
-    error.status = 404;
+    const error: Error = new Error('Not found');
+    // error.status = 404;
     next(error);
 });
 
