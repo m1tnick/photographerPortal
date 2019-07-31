@@ -1,10 +1,11 @@
 import express from 'express';
-import EventModel from '../models/event';
+import { PhotoEvent } from '../models/photoEvent';
+import mongoose from 'mongoose';
 
 const eventRoutes = express.Router();
 
 eventRoutes.get('/', (req, res, next) => {
-    EventModel.find().then(events => {
+    PhotoEvent.find().then(events => {
         res.status(200).json(events);
     }).catch(err => {
         res.status(500).json({
@@ -14,20 +15,27 @@ eventRoutes.get('/', (req, res, next) => {
 });
 
 eventRoutes.post('/add', (req, res) => {
-    const theEvent = new EventModel(req.body);
+
+    const theEvent = new PhotoEvent({
+        name: req.body.name,
+        date: req.body.date,
+        type: req.body.type
+    });
 
     theEvent.save()
         .then(theEvent => {
             res.status(201).json({ 'theevent': 'event in added successfully' });
         })
         .catch(err => {
-            res.status(400).send('unable to save to database');
+            console.log(err);
+
+            res.status(400).json({ message: 'unable to save to database'});
         });
 });
 
 eventRoutes.get('/:id', (req, res) => {
     const id = req.params.id;
-    EventModel.findById(id).then((photoEvent) => {
+    PhotoEvent.findById(id).then((photoEvent) => {
         if (photoEvent) {
             res.status(200).json(photoEvent);
         } else {
@@ -45,7 +53,7 @@ eventRoutes.patch('/:id', (req, res, next) => {
         updateOps[ops.propName] = ops.value;
     }
 
-    EventModel.update({ _id: id }, { $set: updateOps })
+    PhotoEvent.update({ _id: id }, { $set: updateOps })
         .then(result => {
             console.log(result);
             res.status(200).json(result);
@@ -74,7 +82,7 @@ eventRoutes.patch('/:id', (req, res, next) => {
 eventRoutes.delete('/:id', (req, res) => {
     const id = req.params.id;
 
-    EventModel.findByIdAndRemove({ _id: id })
+    PhotoEvent.findByIdAndRemove({ _id: id })
         .then(result => {
             res.status(200).json('Successfully removed');
         })

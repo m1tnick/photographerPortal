@@ -5,8 +5,10 @@ import config from './utils/config';
 
 const server = app.listen(config.PORT, () => {
     console.log(
-        chalk`{green Node Js server running on {green.bold ${
-            config.PORT
-        }} port at {green.bold ${config.HOST}}..}`
+        'App is running at http://%s:%d in ' + chalk.bgRed(app.get('env')) + ' mode',
+        config.HOST,
+        config.PORT
     );
 });
+
+export default server;

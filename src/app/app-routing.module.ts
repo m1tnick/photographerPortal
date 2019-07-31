@@ -6,7 +6,7 @@ import { HomeComponent } from './core/home/home.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   {
-    path: 'event',
+    path: 'events',
     loadChildren: './event/event.module#EventModule'
   },
 
