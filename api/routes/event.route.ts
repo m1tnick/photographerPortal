@@ -1,49 +1,82 @@
 import express from 'express';
-import { PhotoEvent } from '../models/photoEvent';
+import { EventModel } from '../models/photoEvent';
 import mongoose from 'mongoose';
 
 const eventRoutes = express.Router();
 
 eventRoutes.get('/', (req, res, next) => {
-    PhotoEvent.find().then(events => {
-        res.status(200).json(events);
-    }).catch(err => {
-        res.status(500).json({
-            error: err
+    EventModel.find()
+        .select('-__v')
+        .then(events => {
+            const response = {
+                count: events.length,
+                data: events.map(ev => {
+                    return {
+                        id: ev._id,
+                        name: ev.name,
+                        type: ev.type,
+                        date: ev.date,
+                        images: ev.images,
+                        request: {
+                            type: 'GET',
+                            url: 'http://localhost:3005/events/' + ev._id
+                        }
+                    };
+                })
+            };
+            res.status(200).json(response);
+        }).catch(err => {
+            res.status(500).json({
+                error: err
+            });
         });
-    });
 });
 
-eventRoutes.post('/add', (req, res) => {
-
-    const theEvent = new PhotoEvent({
+eventRoutes.post('/', (req, res) => {
+    const photoEvent = new EventModel({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        date: req.body.date,
-        type: req.body.type
+        type: req.body.type,
+        date: req.body.date
     });
 
-    theEvent.save()
-        .then(theEvent => {
-            res.status(201).json({ 'theevent': 'event in added successfully' });
+    photoEvent
+        .save()
+        .then(result => {
+            res.status(201).json({
+                message: 'Created event successfully',
+                data: {
+                    id: result._id,
+                    name: result.name,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/events/' + result._id
+                    }
+                }
+            });
         })
         .catch(err => {
-            console.log(err);
-
-            res.status(400).json({ message: 'unable to save to database'});
+            res.status(400).send({
+                message: 'unable to save to database',
+                error: err
+            });
         });
 });
 
 eventRoutes.get('/:id', (req, res) => {
     const id = req.params.id;
-    PhotoEvent.findById(id).then((photoEvent) => {
-        if (photoEvent) {
-            res.status(200).json(photoEvent);
-        } else {
-            res.status(404).json({
-                message: 'No valid entry found for provided ID'
-            });
-        }
-    });
+
+    EventModel.findById(id)
+        .select('-__v')
+        .then((photoEvent) => {
+            if (photoEvent) {
+                res.status(200).json(photoEvent);
+            } else {
+                res.status(404).json({
+                    message: 'No valid entry found for provided ID'
+                });
+            }
+        });
 });
 
 eventRoutes.patch('/:id', (req, res, next) => {
@@ -53,7 +86,7 @@ eventRoutes.patch('/:id', (req, res, next) => {
         updateOps[ops.propName] = ops.value;
     }
 
-    PhotoEvent.update({ _id: id }, { $set: updateOps })
+    EventModel.update({ _id: id }, { $set: updateOps })
         .then(result => {
             console.log(result);
             res.status(200).json(result);
@@ -65,7 +98,7 @@ eventRoutes.patch('/:id', (req, res, next) => {
             });
         });
 
-    //   EventModel.findById(req.params.id)
+    //   PhotoEvent.findById(req.params.id)
     //     .then(eventRes => {
     //       eventRes.name = req.body.name;
     //       eventRes.type = req.body.type;
@@ -82,7 +115,7 @@ eventRoutes.patch('/:id', (req, res, next) => {
 eventRoutes.delete('/:id', (req, res) => {
     const id = req.params.id;
 
-    PhotoEvent.findByIdAndRemove({ _id: id })
+    EventModel.findByIdAndRemove({ _id: id })
         .then(result => {
             res.status(200).json('Successfully removed');
         })
