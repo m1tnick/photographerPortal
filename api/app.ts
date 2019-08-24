@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 
 import eventsRoute from './routes/event.route';
+import imagesRoute from './routes/image.route';
 import config from './utils/config';
 import chalk from 'chalk';
 
@@ -60,6 +61,7 @@ app.use((req, res, next) => {
 
 // ROUTES
 app.use('/events', eventsRoute);
+app.use('/images', imagesRoute);
 
 app.use((req, res, next) => {
     const error: Error = new Error('Not found');
