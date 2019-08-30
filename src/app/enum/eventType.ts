@@ -1,7 +1,6 @@
 export enum EventType {
-  Weding = 1,
-  Engagement,
-  Baptism,
-  Report,
-  Product
+  Weding = 'wedding',
+  Baptism = 'baptims',
+  Report = 'report',
+  Product = 'product'
 }

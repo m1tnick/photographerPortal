@@ -13,8 +13,8 @@
             <td>{{ event.name }}</td>
             <td>{{ event.date }}</td>
             <td>{{ event.type }}</td>
-            <td><a [routerLink]="['edit', event._id]" class="btn btn-primary">Edit</a></td>
-            <td><a (click)="deleteEvent(event._id)" class="btn btn-danger">Delete</a></td>
+            <td><a [routerLink]="['edit', event.id]" class="btn btn-primary">Edit</a></td>
+            <td><a (click)="deleteEvent(event.id)" class="btn btn-danger">Delete</a></td>
         </tr>
     </tbody>
   </table>

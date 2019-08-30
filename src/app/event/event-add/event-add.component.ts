@@ -4,39 +4,41 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventType } from '@/enum/eventType';
 
 @Component({
-  selector: 'app-event-add',
-  templateUrl: './event-add.component.html'
+    selector: 'app-event-add',
+    templateUrl: './event-add.component.html'
 })
 export class EventAddComponent {
 
-  angForm: FormGroup;
+    angForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private eventService: EventService) {
-    this.createForm();
-  }
+    constructor(private fb: FormBuilder, private eventService: EventService) {
+        this.createForm();
+    }
 
-  submit(name, date, type) {
-    this.eventService.create(name, date, type);
-  }
+    submit() {
+        const { name, date, type } = this.angForm.controls;
 
-  getEventTypes(): any[] {
-      const myEnum = [];
-      const objectEnum = Object.keys(EventType);
-      const values = objectEnum.slice( 0 , objectEnum.length / 2 );
-      const keys = objectEnum.slice( objectEnum.length / 2 );
+        this.eventService.create(name.value, date.value, type.value);
+    }
 
-      for (let i = 0 ; i < objectEnum.length / 2 ; i++ ) {
-        myEnum.push( { key: keys[i], value: values[i] } );
-      }
+    getEventTypes(): any[] {
+        const myEnum = [];
+        const objectEnum = Object.keys(EventType);
+        const values = objectEnum.slice(0, objectEnum.length / 2);
+        const keys = objectEnum.slice(objectEnum.length / 2);
 
-      return myEnum;
-  }
+        for (let i = 0; i < objectEnum.length / 2; i++) {
+            myEnum.push({ key: keys[i], value: values[i] });
+        }
 
-  private createForm() {
-    this.angForm = this.fb.group({
-      name: ['', Validators.required ],
-      date: ['', Validators.required ],
-      type: ['', Validators.required ]
-    });
-  }
+        return myEnum;
+    }
+
+    private createForm() {
+        this.angForm = this.fb.group({
+            name: ['', Validators.required],
+            date: ['', Validators.required],
+            type: ['', Validators.required]
+        });
+    }
 }

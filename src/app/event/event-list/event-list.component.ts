@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Event from '../../models/event.model';
+import Event, { IEvent } from '../../models/event.model';
 import { EventService } from '@/shared/event.service';
 
 @Component({
@@ -14,8 +14,8 @@ export class EventListComponent implements OnInit {
   ngOnInit() {
     this.eventService
       .getEvents()
-      .subscribe((data: Event[]) => {
-        this.events = data;
+      .subscribe((response: {count: number, data: IEvent[]}) => {
+        this.events = response.data;
     });
   }
 

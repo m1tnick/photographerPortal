@@ -8,22 +8,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [
-    EventAddComponent,
-    EventListComponent,
-    EventEditComponent
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    EventRoutingModule,
-    NgSelectModule
-  ],
-  providers: [
-    EventService
-  ]
+    declarations: [
+        EventAddComponent,
+        EventListComponent,
+        EventEditComponent
+    ],
+    imports: [
+        BsDatepickerModule.forRoot(),
+        CommonModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        EventRoutingModule,
+        NgSelectModule,
+    ],
+    providers: [
+        EventService
+    ]
 })
 export class EventModule { }
