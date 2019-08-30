@@ -1,7 +1,10 @@
 import fs from 'fs';
+import util from 'util';
 import { of, Observable } from 'rxjs';
 
 class FileSystemUtils {
+    unlinkPromise = util.promisify(fs.unlink);
+    readFilePromise = util.promisify(fs.readFile);
 
     pathExists(path: string): boolean {
         return fs.existsSync(path);
@@ -11,22 +14,14 @@ class FileSystemUtils {
         return of(fs.mkdirSync(targetDir, { recursive: true }));
     }
 
-    fileExists(path: string) {
-        return true;
-    }
-
     removeFile(path: string) {
-        if (this.fileExists(path)) {
-            fs.unlink(path, (err) => {
-                if (err) {
-                    throw err;
-                }
+        return this.readFilePromise(path)
+            .then(resp => {
+                console.log('Remove file response: ', resp);
 
-                console.log('file deleted');
+                return this.unlinkPromise(path);
             });
-        }
     }
-
 }
 
 export default new FileSystemUtils();

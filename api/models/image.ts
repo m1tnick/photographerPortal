@@ -1,11 +1,11 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-export type ImageDocument = mongoose.Document & {
-    _id:  mongoose.Schema.Types.ObjectId,
-    filename: String,
-    mimeType: String,
-    path: String,
-    default: Boolean
+export interface IImage extends Document {
+    _id:  mongoose.Schema.Types.ObjectId;
+    filename: string;
+    mimeType: string;
+    path: string;
+    default: boolean;
 };
 
 const imageSchema: Schema = new mongoose.Schema({
@@ -17,4 +17,4 @@ const imageSchema: Schema = new mongoose.Schema({
 });
 
 
-export const ImageModel = mongoose.model<ImageDocument>('ImageModel', imageSchema);
+export const ImageModel = mongoose.model<IImage>('ImageModel', imageSchema);

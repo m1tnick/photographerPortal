@@ -1,11 +1,12 @@
 import express from 'express';
-import { EventModel } from '../models/photoEvent';
+import { EventModel } from '../models/event';
 import mongoose from 'mongoose';
 
 const eventRoutes = express.Router();
 
 eventRoutes.get('/', (req, res, next) => {
     EventModel.find()
+        .populate('images')
         .select('-__v')
         .then(events => {
             const response = {
