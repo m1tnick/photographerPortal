@@ -1,38 +1,63 @@
 <div class="card">
-  <div class="card-body">
-    <form [formGroup]="angForm" novalidate>
-      <div class="form-group">
-        <label class="col-md-4">Name</label>
-        <input type="text" class="form-control" formControlName="name" #name [(ngModel)] = "business.name" />
-      </div>
-      <div *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['name'].errors.required">
-          Person Name is required.
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4">Date</label>
-        <input type="text" class="form-control" formControlName="date" #date [(ngModel)] = "business.date" />
-      </div>
-      <div *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['date'].errors.required">
-          Person Business is required.
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4">Type</label>
-        <input type="text" class="form-control" formControlName="type" #type [(ngModel)]="business.type" />
-      </div>
-      <div *ngIf="angForm.controls['type'].invalid && (angForm.controls['type'].dirty || angForm.controls['type'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['type'].errors.required">
-          Business GST Number is required.
-        </div>
-      </div>
-      <div class="form-group">
-        <button (click)="updateEvent(name.value, date.value, type.value)"
-        [disabled]="angForm.invalid"
-        class="btn btn-primary">Update Event</button>
-      </div>
-    </form>
-  </div>
+    <div class="card-body">
+        <form [formGroup]="angForm" novalidate>
+            <div class="form-group">
+                <label class="col-md-4">Name</label>
+                <input type="text" class="form-control" formControlName="name" #name [(ngModel)]="business.name" />
+            </div>
+            <div *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['name'].errors.required">
+                    Person Name is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4">Date</label>
+                <input type="text" class="form-control" formControlName="date" #date [(ngModel)]="business.date" />
+            </div>
+            <div *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['date'].errors.required">
+                    Person Business is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4">Type</label>
+                <input type="text" class="form-control" formControlName="type" #type [(ngModel)]="business.type" />
+            </div>
+            <div *ngIf="angForm.controls['type'].invalid && (angForm.controls['type'].dirty || angForm.controls['type'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['type'].errors.required">
+                    Business GST Number is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <button (click)="updateEvent(name.value, date.value, type.value)" [disabled]="angForm.invalid"
+                    class="btn btn-primary">Update Event</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<h3 class="mt-5 mb-3">Images</h3>
+
+<div class="input-group">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+        <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+    </div>
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button>
+    </div>
+</div>
+
+<!-- <div class="card-deck"></div> -->
+<div class="card-columns mt-5">
+    <div class="card" *ngFor="let item of business.images let i=index">
+        <img src="{{item.path}}" class="card-img-top">
+        <div class="card-body text-right">
+            <a href="#" class="card-link">Remove</a>
+        </div>
+    </div>
+</div>
+<!-- https://via.placeholder.com/150 -->

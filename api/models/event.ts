@@ -1,15 +1,14 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import shortid from 'shortid';
+import { IImage } from './image';
 
 export interface IEvent extends Document {
     name: string;
     date: Date;
     type: string;
     slug: string;
-    images: [
-        { type: mongoose.Schema.Types.ObjectId, ref: 'ImageModel' }
-    ]
-};
+    images: IImage[];
+}
 
 const eventSchema: Schema = new Schema({
     name: String,

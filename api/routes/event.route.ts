@@ -3,7 +3,7 @@ import { EventModel } from '../models/event';
 import mongoose from 'mongoose';
 
 const eventRoutes = express.Router();
-
+const serverURL = 'http://localhost:3005/';
 eventRoutes.get('/', (req, res, next) => {
     EventModel.find()
         .populate('images')
@@ -68,9 +68,12 @@ eventRoutes.get('/:id', (req, res) => {
     const id = req.params.id;
 
     EventModel.findById(id)
+        .populate('images')
         .select('-__v')
         .then((photoEvent) => {
             if (photoEvent) {
+                photoEvent.images.map(image => image.path = serverURL + image.path);
+
                 res.status(200).json(photoEvent);
             } else {
                 res.status(404).json({

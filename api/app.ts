@@ -62,6 +62,8 @@ app.use((req, res, next) => {
 // ROUTES
 app.use('/events', eventsRoute);
 app.use('/images', imagesRoute);
+app.use('/uploads', express.static('uploads'));
+
 
 app.use((req, res, next) => {
     const error: Error = new Error('Not found');
