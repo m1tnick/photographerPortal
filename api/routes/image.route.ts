@@ -14,13 +14,20 @@ const upload = multer({
         fileSize: 1024 * 1014 * 5 // 5MB
     },
     fileFilter: StorageUtils.imageFilter
-}).array('images', 50);
+}).array('file', 50);
 
-imageRoutes.post('/:id', (req, res) => {
+imageRoutes.post('/:id', (req, res, next) => {
     upload(req, res, (err) => {
         if (!req.files) {
             res.status(400).json('Upload unexpected error!');
+            return;
         }
+
+        if (req.files.length === 0) {
+            res.status(400).json('No files to be uploaded.');
+            return;
+        }
+
         const uploadedImages = Array.isArray(req.files) ? req.files : [req.files];
 
         const imagesArray: IImage[] = [];

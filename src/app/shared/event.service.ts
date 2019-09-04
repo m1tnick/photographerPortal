@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IEvent } from '@/models/event.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -26,10 +28,8 @@ export class EventService {
             .get(`${this.uri}`);
     }
 
-    editEvent(id) {
-        return this
-            .http
-            .get(`${this.uri}/${id}`);
+    editEvent(id): Observable<IEvent> {
+        return this.http.get<IEvent>(`${this.uri}/${id}`);
     }
 
     updateEvent(name, date, type, id) {
@@ -46,6 +46,11 @@ export class EventService {
 
     deleteEvent(id) {
         return this.http.delete(`${this.uri}/${id}`);
+    }
+
+
+    upload(eventId: string, formData): Observable<any> {
+        return this.http.post('http://localhost:3005/images/' + eventId, formData);
     }
 }
 
