@@ -1,0 +1,22 @@
+<input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <button [disabled]="uploading || uploadSuccessful" class="add-files-btn"
+        (click)="addFiles()">
+        Add Files
+    </button>
+</div>
+<div class="modal-body">
+        <div *ngFor="let file of files">
+            <progressbar [animate]="false" *ngIf="progress" [value]="progress[file.name].progress | async"><b>{{progress[file.name].progress | async}}%</b></progressbar>
+        </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default"  *ngIf="showCancelButton" (click)="bsModalRef.hide()">{{'Cancel'}}</button>
+    <button class="btn btn-primary" [disabled]="!canBeClosed" (click)="closeDialog()">
+        {{primaryButtonText}}
+    </button>
+</div>

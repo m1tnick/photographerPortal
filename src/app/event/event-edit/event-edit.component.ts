@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import EventModel from '@/models/event.model';
 import { EventService } from '@/shared/event.service';
 import { HttpClient } from '@angular/common/http';
-import EventModel from '@/models/event.model';
-import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-event-edit',
