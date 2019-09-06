@@ -47,7 +47,7 @@
     <div class="card" *ngFor="let item of eventData.images let i=index">
         <img src="{{item.path}}" class="card-img-top">
         <div class="card-body text-right">
-            <a href="#" class="card-link">Remove</a>
+            <button class="btn btn-default" (click)="removeImage(i, item._id)">Remove</button>
         </div>
     </div>
 </div>

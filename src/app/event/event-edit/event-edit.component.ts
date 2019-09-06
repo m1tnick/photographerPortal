@@ -44,4 +44,15 @@ export class EventEditComponent implements OnInit {
             this.router.navigate(['event']);
         });
     }
+
+    removeImage(i: number, itemId: string) {
+        this.eventService.deleteImage(this.eventData._id, itemId)
+            .subscribe(
+                data => {
+                    console.log(data);
+                    this.eventData.images.splice(i, 1);
+                },
+                error => console.info(error)
+            );
+    }
 }

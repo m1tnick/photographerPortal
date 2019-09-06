@@ -48,7 +48,7 @@ imageRoutes.post('/:id', (req, res, next) => {
                 { $push: { images: ids } },
                 { upsert: true, new: true }
             ).then(response => {
-                res.status(200).json(response);
+                res.status(200).json(resp);
             }).catch(error => {
                 res.status(400).json(error);
             });
