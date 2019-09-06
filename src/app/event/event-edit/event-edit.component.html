@@ -40,33 +40,7 @@
 </div>
 
 <h3 class="mt-5 mb-3">Images</h3>
-<app-upload></app-upload>
-
-<div class="input-group">
-    <div class="custom-file">
-        <input type="file" (change)="fileChangeEvent($event)" class="custom-file-input" id="inputGroupFile04" multiple>
-        <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
-    </div>
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" (click)="upload()">Upload</button>
-    </div>
-</div>
-
-<div *ngIf="error">
-    {{ error.message }}
-  </div>
-  <div *ngIf="uploadResponse.status === 'error'">
-    {{ uploadResponse.message }}
-  </div>
-  <div *ngIf="uploadResponse.status === 'progress'">
-
-
-    <div role="progressbar" [style.width.%]="uploadResponse.message" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-      {{uploadResponse.message}}%
-    </div>
-
-  </div>
-
+<app-upload [eventId]="eventData._id"></app-upload>
 
 <!-- <div class="card-deck"></div> -->
 <div class="card-columns mt-5">
@@ -77,4 +51,3 @@
         </div>
     </div>
 </div>
-<!-- https://via.placeholder.com/150 -->

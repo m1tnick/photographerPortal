@@ -1,1 +1,13 @@
-<button mat-raised-button (click)="openUploadDialog()">Upload</button>
+<input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+
+<button class="btn btn-default" [disabled]="uploading || uploadSuccessful" (click)="addFiles()">
+    Add Files
+</button>
+
+<button class="btn btn-primary" [disabled]="uploading || file.files.length === 0" (click)="upload()">
+    Upload
+</button>
+
+<div *ngFor="let file of files">
+    <progressbar [animate]="false" *ngIf="progress" [value]="progress[file.name].progress | async"><b>{{progress[file.name].progress | async}}%</b></progressbar>
+</div>

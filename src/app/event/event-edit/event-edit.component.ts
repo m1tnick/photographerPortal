@@ -1,6 +1,5 @@
 import EventModel from '@/models/event.model';
 import { EventService } from '@/shared/event.service';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,15 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./event-edit.component.css']
 })
 export class EventEditComponent implements OnInit {
-    business = new EventModel();
+    eventData = new EventModel();
     angForm: FormGroup;
     filesToUpload: Array<File> = [];
 
     constructor(private route: ActivatedRoute,
         private router: Router,
         private eventService: EventService,
-        private fb: FormBuilder,
-        private http: HttpClient
+        private fb: FormBuilder
     ) {
         this.createForm();
     }
@@ -35,7 +33,7 @@ export class EventEditComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.eventService.editEvent(params['id']).subscribe(res => {
-                this.business = res;
+                this.eventData = res;
             });
         });
     }
@@ -45,26 +43,5 @@ export class EventEditComponent implements OnInit {
             this.eventService.updateEvent(name, date, type, params['id']);
             this.router.navigate(['event']);
         });
-    }
-
-    upload() {
-        const formData: any = new FormData();
-        const files: Array<File> = this.filesToUpload;
-        console.log(files);
-
-        for (let i = 0; i < files.length; i++) {
-            formData.append('file', files[i], files[i]['name']);
-        }
-        console.log('form data variable :   ' + formData.toString());
-        this.eventService.upload(this.business._id, formData)
-            .subscribe(
-                response => console.log('files', response),
-                error => console.log('error: ', error)
-            );
-    }
-
-    fileChangeEvent(fileInput: any) {
-        this.filesToUpload = <Array<File>>fileInput.target.files;
-        //this.product.photo = fileInput.target.files[0]['name'];
     }
 }
