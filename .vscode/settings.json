@@ -1,4 +1,19 @@
 {
     "typescript.preferences.quoteStyle": "single",
-    "javascript.preferences.quoteStyle": "single"
+    "javascript.preferences.quoteStyle": "single",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#9ad9df",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#c956bf",
+        "activityBarBadge.foreground": "#15202b",
+        "titleBar.activeBackground": "#73cbd3",
+        "titleBar.inactiveBackground": "#73cbd399",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveForeground": "#15202b99",
+        "statusBar.background": "#73cbd3",
+        "statusBarItem.hoverBackground": "#4cbdc7",
+        "statusBar.foreground": "#15202b"
+    },
+    "peacock.color": "#73cbd3"
 }
