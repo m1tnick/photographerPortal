@@ -43,7 +43,16 @@ export class UploadComponent {
         }
     }
 
+// https://www.truecodex.com/course/angular-6/file-upload-in-angular-6-7-with-progress-bar-using-web-api
+// https://www.techiediaries.com/angular-file-upload-progress-bar/
     upload() {
+
+        this.files.forEach(file => {
+            // create a new multipart-form for every file
+            const formData: FormData = new FormData();
+            formData.append('file', file, file.name);
+        });
+
         // if everything was uploaded already, just close the dialog
         if (this.uploadSuccessful) {
             return;
@@ -69,12 +78,15 @@ export class UploadComponent {
         forkJoin(allProgressObservables).subscribe(end => {
             // ... the dialog can be closed again...
             // this.canBeClosed = true;
-
             // ... the upload was successful...
             this.uploadSuccessful = true;
+console.log('end');
+console.log(this.progress);
 
             // ... and the component is no longer uploading
             this.uploading = false;
+
+            this.files.clear();
         });
     }
 }

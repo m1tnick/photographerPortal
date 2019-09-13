@@ -1,6 +1,7 @@
 <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
 
-<button class="btn btn-default" [disabled]="uploading || uploadSuccessful" (click)="addFiles()">
+<span>{{ files.size }} file(s) selected</span>
+<button class="btn btn-default" [disabled]="uploading" (click)="addFiles()">
     Add Files
 </button>
 

@@ -1,9 +1,11 @@
 import express from 'express';
-import { EventModel } from '../models/event';
 import mongoose from 'mongoose';
+
+import { EventModel } from '../models/event';
 
 const eventRoutes = express.Router();
 const serverURL = 'http://localhost:3005/';
+
 eventRoutes.get('/', (req, res, next) => {
     EventModel.find()
         .populate('images')

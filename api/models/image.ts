@@ -9,7 +9,7 @@ export interface IImage extends Document {
 };
 
 const imageSchema: Schema = new mongoose.Schema({
-    _id:  mongoose.Schema.Types.ObjectId,
+    // _id:  mongoose.Schema.Types.ObjectId,
     filename: String,
     mimeType: String,
     path: String,
