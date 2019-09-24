@@ -7,9 +7,11 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class EventService {
-    uri = 'http://localhost:3005/events';
+    baseURL = 'http://localhost:3005';
+    eventsURL = this.baseURL + '/events';
+    imagesURL = this.baseURL + '/images';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     create(name, date, type) {
         const obj = {
@@ -18,18 +20,17 @@ export class EventService {
             type: type
         };
         console.log(obj);
-        this.http.post(`${this.uri}`, obj)
+        this.http
+            .post(`${this.eventsURL}`, obj)
             .subscribe(res => console.log('Done'));
     }
 
     getEvents() {
-        return this
-            .http
-            .get(`${this.uri}`);
+        return this.http.get(`${this.eventsURL}`);
     }
 
     editEvent(id): Observable<IEvent> {
-        return this.http.get<IEvent>(`${this.uri}/${id}`);
+        return this.http.get<IEvent>(`${this.eventsURL}/${id}`);
     }
 
     updateEvent(name, date, type, id) {
@@ -40,23 +41,21 @@ export class EventService {
         };
 
         this.http
-            .patch(`${this.uri}/${id}`, obj)
+            .patch(`${this.eventsURL}/${id}`, obj)
             .subscribe(res => console.log('Done'));
     }
 
     deleteEvent(id) {
-        return this.http.delete(`${this.uri}/${id}`);
+        return this.http.delete(`${this.eventsURL}/${id}`);
     }
 
 
     upload(eventId: string, formData): Observable<any> {
-        return this.http.post('http://localhost:3005/images/' + eventId, formData);
+        return this.http.post(`${this.imagesURL}/${eventId}`, formData);
     }
+
+    deleteImage(eventId: string, imageId: string) {
+        return this.http.delete(`${this.imagesURL}/${eventId}/${imageId}`);
+    }
+
 }
-
-
-
-
-
-
-

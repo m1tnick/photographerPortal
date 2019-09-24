@@ -3,7 +3,7 @@
         <form [formGroup]="angForm" novalidate>
             <div class="form-group">
                 <label class="col-md-4">Name</label>
-                <input type="text" class="form-control" formControlName="name" #name [(ngModel)]="business.name" />
+                <input type="text" class="form-control" formControlName="name" #name [(ngModel)]="eventData.name" />
             </div>
             <div *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)"
                 class="alert alert-danger">
@@ -13,22 +13,22 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4">Date</label>
-                <input type="text" class="form-control" formControlName="date" #date [(ngModel)]="business.date" />
+                <input type="text" class="form-control" formControlName="date" #date [(ngModel)]="eventData.date" />
             </div>
             <div *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['date'].errors.required">
-                    Person Business is required.
+                    Person eventData is required.
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4">Type</label>
-                <input type="text" class="form-control" formControlName="type" #type [(ngModel)]="business.type" />
+                <input type="text" class="form-control" formControlName="type" #type [(ngModel)]="eventData.type" />
             </div>
             <div *ngIf="angForm.controls['type'].invalid && (angForm.controls['type'].dirty || angForm.controls['type'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['type'].errors.required">
-                    Business GST Number is required.
+                    eventData GST Number is required.
                 </div>
             </div>
             <div class="form-group">
@@ -40,24 +40,14 @@
 </div>
 
 <h3 class="mt-5 mb-3">Images</h3>
-
-<div class="input-group">
-    <div class="custom-file">
-        <input type="file" (change)="fileChangeEvent($event)" class="custom-file-input" id="inputGroupFile04" multiple>
-        <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
-    </div>
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" (click)="upload()">Upload</button>
-    </div>
-</div>
+<app-upload [eventId]="eventData._id"></app-upload>
 
 <!-- <div class="card-deck"></div> -->
 <div class="card-columns mt-5">
-    <div class="card" *ngFor="let item of business.images let i=index">
+    <div class="card" *ngFor="let item of eventData.images let i=index">
         <img src="{{item.path}}" class="card-img-top">
         <div class="card-body text-right">
-            <a href="#" class="card-link">Remove</a>
+            <button class="btn btn-default" (click)="removeImage(i, item._id)">Remove</button>
         </div>
     </div>
 </div>
-<!-- https://via.placeholder.com/150 -->
